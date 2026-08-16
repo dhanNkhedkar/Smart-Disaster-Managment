@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Disaster Management Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+/* Header */
+header {
+    background: #c62828;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    margin-top: 8px;
+}
+
+/* Navigation */
+nav {
+    background: #222;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 12px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 8px 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ff5252;
+}
+
+/* Sections */
+section {
+    padding: 40px 8%;
+}
+
+.hero {
+    background: white;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+}
+
+/* Buttons */
+button {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    margin-top: 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #9a0000;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ccc;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* Alert */
+.alert-section {
+    text-align: center;
+    background: #fff3f3;
+}
+
+#alertBox {
+    display: none;
+    background: #ffdddd;
+    border: 2px solid #d32f2f;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 650px;
+    border-radius: 10px;
+}
+
+/* Safety */
+.safety-list {
+    background: white;
+    padding: 25px 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.safety-list li {
+    margin: 12px 0;
+}
+
+/* Emergency */
+.emergency {
+    background: #222;
+    color: white;
+    text-align: center;
+}
+
+.emergency-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.emergency-card {
+    background: #333;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.emergency-card a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Form */
+form {
+    background: white;
+    max-width: 600px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ccc;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+textarea {
+    height: 120px;
+}
+
+/* Footer */
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 800px) {
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        margin: 7px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .emergency-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    section {
+        padding: 30px 5%;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .emergency-cards {
+        grid-template-columns: 1fr;
+    }
+
+    button {
+        width: 90%;
+    }
+
+    .safety-list {
+        padding: 20px 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+    <h1>🚨 Smart Disaster Management Portal</h1>
+    <p>Stay Safe • Stay Alert • Save Lives</p>
+</header>
+
+<!-- Navigation -->
+<nav>
+    <a href="#home">Home</a>
+    <a href="#alerts">Live Alert</a>
+    <a href="#disasters">Disasters</a>
+    <a href="#safety">Safety Tips</a>
+    <a href="#emergency">Emergency</a>
+    <a href="#report">Report</a>
+</nav>
+
+<!-- Home -->
+<section id="home" class="hero">
+
+    <h2>Welcome to Smart Disaster Management</h2>
+
+    <p>
+        This portal provides disaster awareness, emergency information,
+        safety instructions and a simple disaster reporting system.
+    </p>
+
+    <button onclick="showWelcome()">
+        Start Safety Check
+    </button>
+
+</section>
+
+<!-- Live Alert -->
+<section id="alerts" class="alert-section">
+
+    <h2>🚨 Live Emergency Alert</h2>
+
+    <p>Click the button to check the emergency alert.</p>
+
+    <div id="alertBox"></div>
+
+    <button onclick="showAlert()">
+        Check Emergency Alert
+    </button>
+
+</section>
+
+<!-- Disaster Types -->
+<section id="disasters">
+
+    <h2>🌪️ Types of Disasters</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🌊 Flood</h3>
+            <p>
+                Move to higher ground and avoid flooded roads and bridges.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🌍 Earthquake</h3>
+            <p>
+                Drop, Cover and Hold until the shaking stops.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🔥 Fire</h3>
+            <p>
+                Leave the building safely and avoid using elevators.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🌀 Cyclone</h3>
+            <p>
+                Stay indoors and follow official emergency instructions.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Safety Tips -->
+<section id="safety">
+
+    <h2>🛡️ Safety Tips</h2>
+
+    <ul class="safety-list">
+
+        <li>Keep an emergency kit ready.</li>
+
+        <li>Store drinking water and essential food.</li>
+
+        <li>Keep a flashlight and extra batteries.</li>
+
+        <li>Save important emergency phone numbers.</li>
+
+        <li>Follow instructions from official authorities.</li>
+
+        <li>Do not spread fake or unverified information.</li>
+
+        <li>Help children, elderly people and injured persons.</li>
+
+    </ul>
+
+</section>
+
+<!-- Emergency Numbers -->
+<section id="emergency" class="emergency">
+
+    <h2>📞 Emergency Numbers – India</h2>
+
+    <div class="emergency-cards">
+
+        <div class="emergency-card">
+            <h3>🚨 112</h3>
+            <p>National Emergency</p>
+            <a href="tel:112">Call Now</a>
+        </div>
+
+        <div class="emergency-card">
+            <h3>🚓 100</h3>
+            <p>Police</p>
+            <a href="tel:100">Call Now</a>
+        </div>
+
+        <div class="emergency-card">
+            <h3>🔥 101</h3>
+            <p>Fire & Rescue</p>
+            <a href="tel:101">Call Now</a>
+        </div>
+
+        <div class="emergency-card">
+            <h3>🚑 108</h3>
+            <p>Ambulance</p>
+            <a href="tel:108">Call Now</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Report Disaster -->
+<section id="report">
+
+    <h2>📝 Report a Disaster</h2>
+
+    <form onsubmit="submitReport(event)">
+
+        <label>Name</label>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            required
+        >
+
+        <label>Disaster Type</label>
+
+        <select id="type" required>
+            <option value="">Select Disaster</option>
+            <option>Flood</option>
+            <option>Earthquake</option>
+            <option>Fire</option>
+            <option>Cyclone</option>
+            <option>Other</option>
+        </select>
+
+        <label>Location</label>
+
+        <input
+            type="text"
+            id="location"
+            placeholder="Enter location"
+            required
+        >
+
+        <label>Description</label>
+
+        <textarea
+            id="description"
+            placeholder="Describe the situation..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Submit Report
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Footer -->
+<footer>
+
+    <p>© 2026 Smart Disaster Management Portal</p>
+
+    <p>Educational Project | Created using HTML, CSS & JavaScript</p>
+
+</footer>
+
+<script>
+
+/* Welcome Message */
+function showWelcome() {
+
+    alert(
+        "🛡️ Safety Check Started!\n\n" +
+        "Stay calm, stay alert and keep emergency contacts ready."
+    );
+
+}
+
+
+/* Emergency Alert */
+function showAlert() {
+
+    const alertBox = document.getElementById("alertBox");
+
+    alertBox.style.display = "block";
+
+    alertBox.innerHTML =
+        "🚨 <strong>EMERGENCY ALERT</strong><br><br>" +
+        "Please stay calm and follow official instructions.<br>" +
+        "Move to a safe location if required.<br><br>" +
+        "📞 Emergency Assistance: <strong>112</strong>";
+
+}
+
+
+/* Disaster Report */
+function submitReport(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value;
+
+    const type =
+        document.getElementById("type").value;
+
+    const location =
+        document.getElementById("location").value;
+
+    alert(
+        "✅ Disaster Report Submitted!\n\n" +
+        "Name: " + name + "\n" +
+        "Disaster: " + type + "\n" +
+        "Location: " + location
+    );
+
+    event.target.reset();
+
+}
+
+</script>
+
+</body>
+</html>
