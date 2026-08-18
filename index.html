@@ -6,6 +6,12 @@
 
 <title>Smart Disaster Management Portal</title>
 
+<!-- Leaflet Map -->
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
 <style>
 * {
     margin: 0;
@@ -14,239 +20,389 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
 }
 
-/* Header */
+/* ================= HEADER ================= */
+
 header {
-    background: #c62828;
+    background: linear-gradient(135deg, #0f172a, #1d4ed8);
     color: white;
-    text-align: center;
-    padding: 25px 15px;
-}
-
-header h1 {
-    font-size: 30px;
-}
-
-header p {
-    margin-top: 8px;
-}
-
-/* Navigation */
-nav {
-    background: #222;
+    padding: 18px 7%;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,.15);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin: 8px 15px;
-    font-weight: bold;
+    margin-left: 25px;
+    font-size: 14px;
 }
 
 nav a:hover {
-    color: #ff5252;
+    opacity: .75;
 }
 
-/* Sections */
-section {
-    padding: 40px 8%;
-}
+/* ================= HERO ================= */
 
 .hero {
-    background: white;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 60px 20px;
+    background:
+        linear-gradient(rgba(15,23,42,.82), rgba(15,23,42,.88)),
+        url("https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&w=1800&q=80");
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
 
-.hero h2 {
-    font-size: 30px;
-    margin-bottom: 15px;
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    max-width: 700px;
-    margin: auto;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #e2e8f0;
 }
 
-/* Buttons */
-button {
-    background: #d32f2f;
-    color: white;
+.hero-buttons {
+    margin-top: 30px;
+}
+
+.btn {
     border: none;
-    padding: 13px 25px;
-    margin-top: 20px;
-    border-radius: 6px;
-    font-size: 16px;
+    padding: 14px 22px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
+    margin: 6px;
+    transition: .2s;
 }
 
-button:hover {
-    background: #9a0000;
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-/* Cards */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 25px;
+.primary {
+    background: #ef4444;
+    color: white;
 }
 
-.card {
+.secondary {
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px #ccc;
-    text-align: center;
+    color: #1d4ed8;
 }
 
-.card h3 {
+/* ================= SECTIONS ================= */
+
+section {
+    padding: 70px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 34px;
     margin-bottom: 10px;
 }
 
-/* Alert */
-.alert-section {
-    text-align: center;
-    background: #fff3f3;
+.section-title p {
+    color: #64748b;
 }
 
-#alertBox {
-    display: none;
-    background: #ffdddd;
-    border: 2px solid #d32f2f;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 650px;
-    border-radius: 10px;
-}
+/* ================= STATUS ================= */
 
-/* Safety */
-.safety-list {
-    background: white;
-    padding: 25px 40px;
-    border-radius: 10px;
-    max-width: 800px;
-    margin: auto;
-}
-
-.safety-list li {
-    margin: 12px 0;
-}
-
-/* Emergency */
-.emergency {
-    background: #222;
-    color: white;
-    text-align: center;
-}
-
-.emergency-cards {
+.status-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.emergency-card {
-    background: #333;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.emergency-card a {
-    color: white;
-    text-decoration: none;
-}
-
-/* Form */
-form {
+.status-card {
     background: white;
-    max-width: 600px;
-    margin: auto;
     padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px #ccc;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.08);
+}
+
+.status-card h3 {
+    margin-bottom: 12px;
+}
+
+.status-card span {
+    font-size: 30px;
+}
+
+.high {
+    color: #dc2626;
+}
+
+.medium {
+    color: #f59e0b;
+}
+
+.low {
+    color: #16a34a;
+}
+
+/* ================= MAP ================= */
+
+.map-container {
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.08);
+}
+
+#map {
+    height: 500px;
+    border-radius: 12px;
+}
+
+.demo-warning {
+    background: #fff7ed;
+    border-left: 5px solid #f97316;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: #7c2d12;
+}
+
+/* ================= REPORT ================= */
+
+.report-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.form-card,
+.reports-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.08);
 }
 
 input,
 select,
 textarea {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0 15px;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    font-size: 15px;
+    padding: 13px;
+    margin: 8px 0 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
 }
 
 textarea {
-    height: 120px;
+    resize: vertical;
+    min-height: 100px;
 }
 
-/* Footer */
-footer {
-    background: #111;
+.form-card button {
+    width: 100%;
+    background: #1d4ed8;
+    color: white;
+}
+
+.report-item {
+    border: 1px solid #e2e8f0;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background: #f8fafc;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.report-type {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.badge {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.badge-critical {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge-high {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.badge-medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-low {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.report-meta {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 7px;
+}
+
+/* ================= SAFETY ================= */
+
+.safety-box {
+    background: linear-gradient(135deg, #172554, #1e3a8a);
+    color: white;
+    border-radius: 18px;
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(15,23,42,.2);
+}
+
+.safety-step {
+    margin-bottom: 25px;
+}
+
+.safety-step h3 {
+    margin-bottom: 15px;
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.choice {
+    padding: 16px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.25);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.choice:hover,
+.choice.selected {
+    background: #2563eb;
+}
+
+.safety-result {
+    margin-top: 25px;
+    background: white;
+    color: #172033;
+    padding: 25px;
+    border-radius: 12px;
+    display: none;
+}
+
+.safety-result ul {
+    margin: 15px 0 15px 20px;
+}
+
+.safety-result li {
+    margin-bottom: 8px;
+}
+
+.location-status {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* ================= EMERGENCY ================= */
+
+.emergency {
+    background: #991b1b;
     color: white;
     text-align: center;
-    padding: 20px;
 }
 
-/* Mobile Responsive Design */
-@media (max-width: 800px) {
+.emergency h2 {
+    margin-bottom: 15px;
+}
 
-    header h1 {
-        font-size: 24px;
-    }
+.emergency-number {
+    display: inline-block;
+    background: white;
+    color: #991b1b;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-decoration: none;
+}
 
-    nav {
+/* ================= FOOTER ================= */
+
+footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 30px;
+    text-align: center;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 800px) {
+
+    header {
         flex-direction: column;
-        text-align: center;
+        gap: 12px;
     }
 
     nav a {
-        margin: 7px;
+        margin: 0 7px;
     }
 
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
+    .hero h1 {
+        font-size: 38px;
     }
 
-    .emergency-cards {
-        grid-template-columns: repeat(2, 1fr);
+    .report-container {
+        grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 600px) {
 
     section {
-        padding: 30px 5%;
-    }
-
-    .hero h2 {
-        font-size: 24px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-    .emergency-cards {
-        grid-template-columns: 1fr;
-    }
-
-    button {
-        width: 90%;
-    }
-
-    .safety-list {
-        padding: 20px 30px;
+        padding: 50px 5%;
     }
 }
 </style>
@@ -254,263 +410,996 @@ footer {
 
 <body>
 
-<!-- Header -->
-<header>
-    <h1>🚨 Smart Disaster Management Portal</h1>
-    <p>Stay Safe • Stay Alert • Save Lives</p>
-</header>
+<!-- ================= HEADER ================= -->
 
-<!-- Navigation -->
+<header>
+
+<div class="logo">
+    🚨 Smart Disaster Management
+</div>
+
 <nav>
     <a href="#home">Home</a>
-    <a href="#alerts">Live Alert</a>
-    <a href="#disasters">Disasters</a>
-    <a href="#safety">Safety Tips</a>
-    <a href="#emergency">Emergency</a>
-    <a href="#report">Report</a>
+    <a href="#live">Live Emergency</a>
+    <a href="#safety">Safety Check</a>
+    <a href="#reports">Reports</a>
 </nav>
 
-<!-- Home -->
-<section id="home" class="hero">
+</header>
 
-    <h2>Welcome to Smart Disaster Management</h2>
 
-    <p>
-        This portal provides disaster awareness, emergency information,
-        safety instructions and a simple disaster reporting system.
-    </p>
+<!-- ================= HERO ================= -->
 
-    <button onclick="showWelcome()">
-        Start Safety Check
-    </button>
+<section class="hero" id="home">
 
-</section>
+<div class="hero-content">
 
-<!-- Live Alert -->
-<section id="alerts" class="alert-section">
+<h1>Smart Disaster Management Portal</h1>
 
-    <h2>🚨 Live Emergency Alert</h2>
+<p>
+A centralized platform for disaster awareness, emergency monitoring,
+citizen reporting and personalized safety guidance.
+</p>
 
-    <p>Click the button to check the emergency alert.</p>
+<div class="hero-buttons">
 
-    <div id="alertBox"></div>
+<button class="btn primary"
+onclick="startSafetyCheck()">
+🛡 Start Safety Check
+</button>
 
-    <button onclick="showAlert()">
-        Check Emergency Alert
-    </button>
+<button class="btn secondary"
+onclick="document.getElementById('live').scrollIntoView()">
+📍 View Live Emergency
+</button>
 
-</section>
+</div>
 
-<!-- Disaster Types -->
-<section id="disasters">
-
-    <h2>🌪️ Types of Disasters</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3>🌊 Flood</h3>
-            <p>
-                Move to higher ground and avoid flooded roads and bridges.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🌍 Earthquake</h3>
-            <p>
-                Drop, Cover and Hold until the shaking stops.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🔥 Fire</h3>
-            <p>
-                Leave the building safely and avoid using elevators.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>🌀 Cyclone</h3>
-            <p>
-                Stay indoors and follow official emergency instructions.
-            </p>
-        </div>
-
-    </div>
+</div>
 
 </section>
 
-<!-- Safety Tips -->
+
+<!-- ================= STATUS ================= -->
+
+<section>
+
+<div class="section-title">
+
+<h2>Current Disaster Overview</h2>
+
+<p>Demo monitoring dashboard for selected locations</p>
+
+</div>
+
+<div class="status-grid">
+
+<div class="status-card">
+<span>🌊</span>
+<h3>Flood Risk</h3>
+<p class="high">HIGH</p>
+</div>
+
+<div class="status-card">
+<span>🔥</span>
+<h3>Fire Risk</h3>
+<p class="medium">MEDIUM</p>
+</div>
+
+<div class="status-card">
+<span>🌍</span>
+<h3>Earthquake</h3>
+<p class="low">LOW</p>
+</div>
+
+<div class="status-card">
+<span>🌀</span>
+<h3>Cyclone</h3>
+<p class="medium">MEDIUM</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= LIVE MAP ================= -->
+
+<section id="live">
+
+<div class="section-title">
+
+<h2>📍 Live Emergency Monitoring</h2>
+
+<p>
+Selected disaster locations and potential risk zones
+</p>
+
+</div>
+
+<div class="demo-warning">
+⚠️ <strong>Demo Data:</strong>
+The locations shown below are simulated examples for demonstration.
+They are not real-time emergency alerts.
+</div>
+
+<div class="map-container">
+
+<div id="map"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SAFETY CHECK ================= -->
+
 <section id="safety">
 
-    <h2>🛡️ Safety Tips</h2>
+<div class="section-title">
 
-    <ul class="safety-list">
+<h2>🛡 Personal Safety Check</h2>
 
-        <li>Keep an emergency kit ready.</li>
+<p>
+Get safety instructions based on the disaster you are currently facing.
+</p>
 
-        <li>Store drinking water and essential food.</li>
+</div>
 
-        <li>Keep a flashlight and extra batteries.</li>
+<div class="safety-box">
 
-        <li>Save important emergency phone numbers.</li>
+<div class="safety-step">
 
-        <li>Follow instructions from official authorities.</li>
+<h3>1. What type of disaster are you facing?</h3>
 
-        <li>Do not spread fake or unverified information.</li>
+<div class="choice-grid">
 
-        <li>Help children, elderly people and injured persons.</li>
+<button class="choice" onclick="selectDisaster('Flood', this)">
+🌊 Flood
+</button>
 
-    </ul>
+<button class="choice" onclick="selectDisaster('Fire', this)">
+🔥 Fire
+</button>
 
-</section>
+<button class="choice" onclick="selectDisaster('Earthquake', this)">
+🌍 Earthquake
+</button>
 
-<!-- Emergency Numbers -->
-<section id="emergency" class="emergency">
+<button class="choice" onclick="selectDisaster('Cyclone', this)">
+🌀 Cyclone
+</button>
 
-    <h2>📞 Emergency Numbers – India</h2>
+<button class="choice" onclick="selectDisaster('Landslide', this)">
+⛰ Landslide
+</button>
 
-    <div class="emergency-cards">
+</div>
 
-        <div class="emergency-card">
-            <h3>🚨 112</h3>
-            <p>National Emergency</p>
-            <a href="tel:112">Call Now</a>
-        </div>
+</div>
 
-        <div class="emergency-card">
-            <h3>🚓 100</h3>
-            <p>Police</p>
-            <a href="tel:100">Call Now</a>
-        </div>
 
-        <div class="emergency-card">
-            <h3>🔥 101</h3>
-            <p>Fire & Rescue</p>
-            <a href="tel:101">Call Now</a>
-        </div>
+<div class="safety-step">
 
-        <div class="emergency-card">
-            <h3>🚑 108</h3>
-            <p>Ambulance</p>
-            <a href="tel:108">Call Now</a>
-        </div>
+<h3>2. What is your current situation?</h3>
 
-    </div>
+<div class="choice-grid">
 
-</section>
+<button class="choice" onclick="selectStatus('safe', this)">
+🟢 I am safe
+</button>
 
-<!-- Report Disaster -->
-<section id="report">
+<button class="choice" onclick="selectStatus('danger', this)">
+🟠 I am in danger
+</button>
 
-    <h2>📝 Report a Disaster</h2>
+<button class="choice" onclick="selectStatus('emergency', this)">
+🔴 I need immediate help
+</button>
 
-    <form onsubmit="submitReport(event)">
+</div>
 
-        <label>Name</label>
-        <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
-            required
-        >
+</div>
 
-        <label>Disaster Type</label>
 
-        <select id="type" required>
-            <option value="">Select Disaster</option>
-            <option>Flood</option>
-            <option>Earthquake</option>
-            <option>Fire</option>
-            <option>Cyclone</option>
-            <option>Other</option>
-        </select>
+<div class="safety-step">
 
-        <label>Location</label>
+<h3>3. Your current location</h3>
 
-        <input
-            type="text"
-            id="location"
-            placeholder="Enter location"
-            required
-        >
+<button
+class="btn secondary"
+onclick="detectLocation()">
+📍 Detect My Location
+</button>
 
-        <label>Description</label>
+<div class="location-status" id="locationStatus">
+Location not detected.
+</div>
 
-        <textarea
-            id="description"
-            placeholder="Describe the situation..."
-            required
-        ></textarea>
+</div>
 
-        <button type="submit">
-            Submit Report
-        </button>
 
-    </form>
+<div id="safetyResult" class="safety-result">
+
+<h2 id="resultTitle"></h2>
+
+<ul id="instructions"></ul>
+
+<a
+id="emergencyButton"
+class="btn primary"
+href="tel:112"
+style="display:none;text-decoration:none;text-align:center;">
+🚨 Call Emergency Services – 112
+</a>
+
+</div>
+
+</div>
 
 </section>
 
-<!-- Footer -->
+
+<!-- ================= REPORTS ================= -->
+
+<section id="reports">
+
+<div class="section-title">
+
+<h2>📢 Disaster Reports</h2>
+
+<p>
+Report an incident and help authorities understand what is happening.
+</p>
+
+</div>
+
+
+<div class="report-container">
+
+
+<!-- REPORT FORM -->
+
+<div class="form-card">
+
+<h2>Submit a Report</h2>
+
+<form id="reportForm">
+
+<label>Your Name</label>
+
+<input
+type="text"
+id="reporterName"
+placeholder="Enter your name"
+required
+>
+
+
+<label>Disaster Type</label>
+
+<select id="reportType" required>
+
+<option value="">Select disaster</option>
+<option>Flood</option>
+<option>Fire</option>
+<option>Earthquake</option>
+<option>Cyclone</option>
+<option>Landslide</option>
+<option>Other</option>
+
+</select>
+
+
+<label>Location</label>
+
+<input
+type="text"
+id="reportLocation"
+placeholder="Example: Pune, Maharashtra"
+required
+>
+
+
+<label>Severity</label>
+
+<select id="reportSeverity" required>
+
+<option value="">Select severity</option>
+<option value="Critical">Critical</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+
+</select>
+
+
+<label>Description</label>
+
+<textarea
+id="reportDescription"
+placeholder="Describe the situation..."
+required
+></textarea>
+
+
+<button class="btn" type="submit">
+📤 Submit Disaster Report
+</button>
+
+</form>
+
+</div>
+
+
+<!-- REPORT LIST -->
+
+<div class="reports-card">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
+
+<h2>Recent Reports</h2>
+
+<button
+class="btn"
+style="background:#fee2e2;color:#b91c1c;"
+onclick="clearReports()">
+Clear
+</button>
+
+</div>
+
+<div id="reportsList"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= EMERGENCY ================= -->
+
+<section class="emergency">
+
+<h2>🚨 Emergency Assistance</h2>
+
+<p>
+If you are facing an immediate life-threatening situation,
+contact emergency services.
+</p>
+
+<a class="emergency-number" href="tel:112">
+112
+</a>
+
+<p style="margin-top:15px;">
+India's integrated emergency response number
+</p>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-    <p>© 2026 Smart Disaster Management Portal</p>
+<p>
+© 2026 Smart Disaster Management Portal
+</p>
 
-    <p>Educational Project | Created using HTML, CSS & JavaScript</p>
+<p style="margin-top:8px;">
+Designed for disaster awareness, reporting and emergency preparedness.
+</p>
 
 </footer>
 
+
+<!-- LEAFLET -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
 <script>
 
-/* Welcome Message */
-function showWelcome() {
+/* =========================================================
+   MAP
+========================================================= */
 
-    alert(
-        "🛡️ Safety Check Started!\n\n" +
-        "Stay calm, stay alert and keep emergency contacts ready."
-    );
+const map = L.map('map').setView([20.5937, 78.9629], 5);
 
+L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution: '&copy; OpenStreetMap contributors'
+    }
+).addTo(map);
+
+
+/* Demo disaster locations */
+
+const disasterLocations = [
+
+{
+    name: "Mumbai",
+    lat: 19.0760,
+    lng: 72.8777,
+    type: "Flood",
+    risk: "HIGH",
+    color: "red"
+},
+
+{
+    name: "Guwahati",
+    lat: 26.1445,
+    lng: 91.7362,
+    type: "Flood",
+    risk: "HIGH",
+    color: "red"
+},
+
+{
+    name: "Odisha Coast",
+    lat: 20.2961,
+    lng: 85.8245,
+    type: "Cyclone",
+    risk: "MEDIUM",
+    color: "orange"
+},
+
+{
+    name: "Pune",
+    lat: 18.5204,
+    lng: 73.8567,
+    type: "Landslide Risk",
+    risk: "MEDIUM",
+    color: "orange"
+},
+
+{
+    name: "Delhi",
+    lat: 28.6139,
+    lng: 77.2090,
+    type: "Earthquake Risk",
+    risk: "LOW",
+    color: "green"
+},
+
+{
+    name: "Uttarakhand",
+    lat: 30.0668,
+    lng: 79.0193,
+    type: "Landslide",
+    risk: "HIGH",
+    color: "red"
 }
 
-
-/* Emergency Alert */
-function showAlert() {
-
-    const alertBox = document.getElementById("alertBox");
-
-    alertBox.style.display = "block";
-
-    alertBox.innerHTML =
-        "🚨 <strong>EMERGENCY ALERT</strong><br><br>" +
-        "Please stay calm and follow official instructions.<br>" +
-        "Move to a safe location if required.<br><br>" +
-        "📞 Emergency Assistance: <strong>112</strong>";
-
-}
+];
 
 
-/* Disaster Report */
-function submitReport(event) {
+/* Add markers */
+
+disasterLocations.forEach(location => {
+
+    let marker = L.marker([
+        location.lat,
+        location.lng
+    ]).addTo(map);
+
+    marker.bindPopup(`
+
+        <div style="min-width:200px">
+
+        <h3>🚨 ${location.name}</h3>
+
+        <p>
+        <strong>Disaster:</strong>
+        ${location.type}
+        </p>
+
+        <p>
+        <strong>Risk:</strong>
+        <span style="color:
+        ${location.color === 'red' ? '#dc2626' :
+          location.color === 'orange' ? '#f59e0b' :
+          '#16a34a'}">
+        ${location.risk}
+        </span>
+        </p>
+
+        <p>
+        <strong>Status:</strong>
+        Monitoring
+        </p>
+
+        <small>
+        Demo / Simulated Data
+        </small>
+
+        </div>
+
+    `);
+
+});
+
+
+/* =========================================================
+   REPORT SYSTEM
+========================================================= */
+
+let reports = JSON.parse(
+    localStorage.getItem("disasterReports")
+) || [];
+
+
+/* Submit report */
+
+document
+.getElementById("reportForm")
+.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const name =
-        document.getElementById("name").value;
+    const report = {
 
-    const type =
-        document.getElementById("type").value;
+        id: Date.now(),
 
-    const location =
-        document.getElementById("location").value;
+        name:
+        document.getElementById("reporterName").value,
 
-    alert(
-        "✅ Disaster Report Submitted!\n\n" +
-        "Name: " + name + "\n" +
-        "Disaster: " + type + "\n" +
-        "Location: " + location
+        type:
+        document.getElementById("reportType").value,
+
+        location:
+        document.getElementById("reportLocation").value,
+
+        severity:
+        document.getElementById("reportSeverity").value,
+
+        description:
+        document.getElementById("reportDescription").value,
+
+        time:
+        new Date().toLocaleString()
+
+    };
+
+
+    reports.unshift(report);
+
+    localStorage.setItem(
+        "disasterReports",
+        JSON.stringify(reports)
     );
 
-    event.target.reset();
+
+    displayReports();
+
+    this.reset();
+
+    alert(
+        "✅ Disaster report submitted successfully!"
+    );
+
+});
+
+
+/* Display reports */
+
+function displayReports() {
+
+    const container =
+        document.getElementById("reportsList");
+
+    if (reports.length === 0) {
+
+        container.innerHTML = `
+            <p style="color:#64748b">
+            No disaster reports submitted yet.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    reports.forEach(report => {
+
+        let severityClass =
+            report.severity.toLowerCase();
+
+
+        const item = document.createElement("div");
+
+        item.className = "report-item";
+
+
+        item.innerHTML = `
+
+            <div class="report-header">
+
+                <div class="report-type">
+                    ${getDisasterIcon(report.type)}
+                    ${escapeHTML(report.type)}
+                </div>
+
+                <span class="badge badge-${severityClass}">
+                    ${escapeHTML(report.severity)}
+                </span>
+
+            </div>
+
+            <p>
+                ${escapeHTML(report.description)}
+            </p>
+
+            <div class="report-meta">
+                📍 ${escapeHTML(report.location)}
+            </div>
+
+            <div class="report-meta">
+                👤 Reported by:
+                ${escapeHTML(report.name)}
+            </div>
+
+            <div class="report-meta">
+                🕐 ${escapeHTML(report.time)}
+            </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+/* Disaster icons */
+
+function getDisasterIcon(type) {
+
+    const icons = {
+
+        "Flood": "🌊",
+        "Fire": "🔥",
+        "Earthquake": "🌍",
+        "Cyclone": "🌀",
+        "Landslide": "⛰",
+        "Other": "⚠️"
+
+    };
+
+    return icons[type] || "⚠️";
+
+}
+
+
+/* Prevent HTML injection */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* Clear reports */
+
+function clearReports() {
+
+    if (
+        !confirm(
+            "Are you sure you want to delete all reports?"
+        )
+    ) {
+        return;
+    }
+
+    reports = [];
+
+    localStorage.removeItem(
+        "disasterReports"
+    );
+
+    displayReports();
+
+}
+
+
+/* Load reports on startup */
+
+displayReports();
+
+
+/* =========================================================
+   SAFETY CHECK
+========================================================= */
+
+let selectedDisaster = null;
+let selectedStatus = null;
+
+
+/* Start safety check */
+
+function startSafetyCheck() {
+
+    document
+        .getElementById("safety")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* Select disaster */
+
+function selectDisaster(type, element) {
+
+    selectedDisaster = type;
+
+    document
+        .querySelectorAll(".safety-step:nth-child(1) .choice")
+        .forEach(button => {
+            button.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    generateSafetyResult();
+
+}
+
+
+/* Select status */
+
+function selectStatus(status, element) {
+
+    selectedStatus = status;
+
+    document
+        .querySelectorAll(".safety-step:nth-child(2) .choice")
+        .forEach(button => {
+            button.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    generateSafetyResult();
+
+}
+
+
+/* Generate safety instructions */
+
+function generateSafetyResult() {
+
+    if (!selectedDisaster || !selectedStatus) {
+        return;
+    }
+
+
+    const result =
+        document.getElementById("safetyResult");
+
+    const title =
+        document.getElementById("resultTitle");
+
+    const instructions =
+        document.getElementById("instructions");
+
+    const emergencyButton =
+        document.getElementById("emergencyButton");
+
+
+    const safetyInstructions = {
+
+        Flood: [
+
+            "Move to higher ground immediately.",
+            "Do not walk or drive through moving flood water.",
+            "Stay away from electrical equipment and fallen power lines.",
+            "Keep your phone charged and carry essential documents.",
+            "Follow official evacuation instructions."
+
+        ],
+
+        Fire: [
+
+            "Leave the building immediately.",
+            "Use stairs instead of elevators.",
+            "Stay low if there is heavy smoke.",
+            "Do not return inside for belongings.",
+            "Move to a safe assembly area."
+
+        ],
+
+        Earthquake: [
+
+            "Drop, Cover and Hold On.",
+            "Stay away from windows and heavy objects.",
+            "Do not use elevators.",
+            "After shaking stops, move carefully to a safe open area.",
+            "Be prepared for aftershocks."
+
+        ],
+
+        Cyclone: [
+
+            "Stay indoors and away from windows.",
+            "Secure doors and windows if it is safe to do so.",
+            "Keep an emergency kit and drinking water ready.",
+            "Avoid flooded roads.",
+            "Follow official evacuation instructions."
+
+        ],
+
+        Landslide: [
+
+            "Move away from the landslide area immediately.",
+            "Avoid valleys, steep slopes and unstable ground.",
+            "Do not cross active landslide zones.",
+            "Move toward a safer elevated location.",
+            "Follow evacuation instructions."
+
+        ]
+
+    };
+
+
+    const instructionsList =
+        safetyInstructions[selectedDisaster];
+
+
+    instructions.innerHTML = "";
+
+
+    instructionsList.forEach(item => {
+
+        const li =
+            document.createElement("li");
+
+        li.textContent = item;
+
+        instructions.appendChild(li);
+
+    });
+
+
+    if (selectedStatus === "safe") {
+
+        title.innerHTML =
+            `🟢 You selected: ${selectedDisaster}`;
+
+        emergencyButton.style.display =
+            "none";
+
+    }
+
+    else if (selectedStatus === "danger") {
+
+        title.innerHTML =
+            `🟠 Danger detected: ${selectedDisaster}`;
+
+        emergencyButton.style.display =
+            "inline-block";
+
+    }
+
+    else {
+
+        title.innerHTML =
+            `🔴 IMMEDIATE HELP REQUIRED`;
+
+        emergencyButton.style.display =
+            "inline-block";
+
+    }
+
+
+    result.style.display = "block";
+
+}
+
+
+/* =========================================================
+   GEOLOCATION
+========================================================= */
+
+function detectLocation() {
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    if (!navigator.geolocation) {
+
+        status.textContent =
+            "❌ Geolocation is not supported by this browser.";
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "📍 Detecting your location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude.toFixed(5);
+
+            const longitude =
+                position.coords.longitude.toFixed(5);
+
+
+            status.innerHTML = `
+
+                ✅ Location detected.
+
+                <br>
+
+                Latitude:
+                <strong>${latitude}</strong>
+
+                <br>
+
+                Longitude:
+                <strong>${longitude}</strong>
+
+            `;
+
+
+            /* Add user's location to map */
+
+            L.marker([
+                position.coords.latitude,
+                position.coords.longitude
+            ])
+            .addTo(map)
+            .bindPopup(
+                "📍 Your Current Location"
+            )
+            .openPopup();
+
+
+            map.setView([
+                position.coords.latitude,
+                position.coords.longitude
+            ], 10);
+
+        },
+
+
+        function(error) {
+
+            status.textContent =
+                "❌ Unable to access your location. Please allow location permission.";
+
+        }
+
+    );
 
 }
 
